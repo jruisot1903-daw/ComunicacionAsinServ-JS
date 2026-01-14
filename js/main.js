@@ -4,7 +4,7 @@ let info = document.getElementById("info");
 document.getElementById("leeTxt").addEventListener("click", () =>{
     let xhr = new XMLHttpRequest(); // creamos el objeto 
     xhr.responseType = "text";
-
+//xhr.responseType = "blob"; para archivos de audio , videos , imagenes , pdf etc...
     xhr.onreadystatechange = function(){
         console.log("Estado: "+xhr.readyState+" . Nivel: "+xhr.status); // ver como cambian esos valores
         if((xhr.readyState == 4) && (xhr.status == 200)){ // condiciones para que se haga 
