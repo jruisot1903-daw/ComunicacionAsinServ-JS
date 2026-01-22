@@ -53,32 +53,149 @@ let info = document.getElementById("info");
 
 //Enviar JSON al  servidor 
 
-var alumno = new Object();
+// var alumno = new Object();
 
-alumno.name = "Pepe";
-alumno.edad = 19;
-alumno.course = 2;
-alumno.fp = "DAW";
+// alumno.name = "Pepe";
+// alumno.age = 19;
+// alumno.course = 2;
+// alumno.fp = "DAW";
+
+// console.log(alumno)
+// console.log(JSON.stringify(alumno))
 
 
-console.log(alumno);
-console.log(JSON.stringify(alumno));
+// document.getElementById("btDatos").addEventListener("click", () => {
+//     let xhr = new XMLHttpRequest();
 
-document.getElementById("btDatos").addEventListener("click", () => {
-    let xhr = new XMLHttpRequest();
+// // xhr.responseType = "text"; 
+// si lo ponemos json en vez de text se auto parsea y el JSON.parse no hace falta ponerlo
+//     xhr.onreadystatechange = function () {
 
-    // xhr.responseType = "text";
-    xhr.onreadystatechange = function () {
+//        if ((xhr.readyState == 4) && (xhr.status == 200)) {
+//         // Procesamos respuesta del server:
+//             info.innerHTML = xhr.response;
+//             let respData = JSON.parse(xhr.response);
+//             console.log("Usuario: " + respData.name);
+//        }
+//     }
 
-       if ((xhr.readyState == 4) && (xhr.status == 200)) {
-        // Procesamos respuesta del server:
-            info = xhr.responseXML;
-           
-       }
-    }
+//     xhr.open("POST","http://www.js.es/server/hello.php");
+//     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//     xhr.send(JSON.stringify(alumno));
+// });
 
-    xhr.open("POST","http://www.js.es/server/hello.php"); 
-    xhr.send(JSON.stringify(alumno));
 
-    
+//Recibir JSON del  servidor 
+
+// document.getElementById("btDatos").addEventListener("click", () => {
+//     let xhr = new XMLHttpRequest();
+
+//      xhr.responseType = "json";
+//     xhr.onreadystatechange = function () {
+
+//        if ((xhr.readyState == 4) && (xhr.status == 200)) {
+//         // Procesamos respuesta del server:
+//             info.innerHTML = xhr.response;
+//             let data = xhr.response.animales[3]
+//             console.log(data);
+//             info.innerHTML = "Nombre: "+data.nombre+" Habitad: "+data.habitat;
+//        }
+//     }
+
+//     xhr.open("POST","http://www.js.es/server/animales.json");
+//     //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//     xhr.send();
+// });
+
+
+
+//----------------------------- FETCH ------------------------------
+
+//Ejemplo basico , pero siempre es la misma estructura
+
+// document.getElementById("btDatos").addEventListener("click",function(){
+//     fetch("http://www.js.es/server/hello.php",
+//         {
+//             method:"POST",
+//             headers: {"Content-Type":"application/x-www-form-urlencoded"},
+//             body: "login=Pepe&pass=1234"
+//         })
+//     .then(function(resp){
+//        if(resp.ok){
+//             info.innerHTML = "Respuesta: "+resp;
+//             console.log(resp);
+//             // depende lo que vayamos a recibir tenemos que ponerle en nuestro caso text porque es texto si no json , blob ..
+//             resp.text()
+//             .then(function(data){
+        
+//                 info.innerHTML = data;
+//             })
+//             .catch(function(err){
+//                 info.innerHTML = "ERROR: "+err;
+//             });
+//         }
+//     })
+//     .catch(function(err){
+//         info.innerHTML = "ERROR: "+err;
+//     })
+// });
+
+//----------------------------- FETCH enviar JSON ------------------------------
+
+// var alumno = new Object();
+// alumno.name = "Pepe";
+// alumno.age = 19;
+// alumno.course = 2;
+// alumno.fp = "DAW";
+
+// document.getElementById("btDatos").addEventListener("click",function(){
+//     fetch("http://www.js.es/server/hello.php",
+//         {
+//             method:"POST",
+//             headers: {"Content-Type":"application/x-www-form-urlencoded"},
+//             body: JSON.stringify({alumno}),
+//             cache: "no-cache"
+//         })
+//     .then(function(resp){
+//        if(resp.ok){
+//             console.log(resp);
+//             resp.text()
+//             .then(function(data){
+        
+//                 info.innerHTML = data.name;
+//             })
+//             .catch(function(err){
+//                 info.innerHTML = "ERROR: "+err;
+//             });
+//         }
+//     })
+//     .catch(function(err){
+//         info.innerHTML = "ERROR: "+err;
+//     })
+// });
+//----------------------------- FETCH recibir JSON ------------------------------
+document.getElementById("btDatos").addEventListener("click",function(){
+    fetch("http://www.js.es/server/animales.json",
+        {
+            method:"POST",
+            headers: {"Content-Type":"application/x-www-form-urlencoded"},
+            cache: "no-cache"
+        })
+    .then(function(resp){
+       if(resp.ok){
+            resp.json()
+            .then(function(data){
+                console.log(data)
+                data = data.animales[1]
+                console.log(data)
+                info.innerHTML = "El "+data.nombre+" es: "+data.dieta;
+            })
+            .catch(function(err){
+                info.innerHTML = "ERROR: "+err;
+            });
+        }
+    })
+    .catch(function(err){
+        info.innerHTML = "ERROR: "+err;
+    })
 });

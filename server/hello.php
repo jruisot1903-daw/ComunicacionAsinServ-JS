@@ -1,9 +1,9 @@
 <?php
 
- $login = $_GET["login"];
- $pass = $_GET["pass"];
+    //  $login = $_POST["login"];
+    //  $pass = $_POST["pass"];
 
-echo "Recibido Login: <b>".$login."</b> en el servidor. El password <b style='color:red'>".$pass." </b>es poco seguro";
+    // echo "Recibido Login: <b>".$login."</b> en el servidor. El password <b style='color:red'>".$pass." </b>es poco seguro";
 // obtener el objeto de un JSON
 
 $data = file_get_contents('php://input');
