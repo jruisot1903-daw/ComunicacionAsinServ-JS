@@ -174,28 +174,43 @@ let info = document.getElementById("info");
 //     })
 // });
 //----------------------------- FETCH recibir JSON ------------------------------
-document.getElementById("btDatos").addEventListener("click",function(){
-    fetch("http://www.js.es/server/animales.json",
-        {
-            method:"POST",
-            headers: {"Content-Type":"application/x-www-form-urlencoded"},
-            cache: "no-cache"
-        })
-    .then(function(resp){
-       if(resp.ok){
-            resp.json()
-            .then(function(data){
-                console.log(data)
-                data = data.animales[1]
-                console.log(data)
-                info.innerHTML = "El "+data.nombre+" es: "+data.dieta;
-            })
-            .catch(function(err){
-                info.innerHTML = "ERROR: "+err;
-            });
-        }
-    })
-    .catch(function(err){
-        info.innerHTML = "ERROR: "+err;
-    })
+// document.getElementById("btDatos").addEventListener("click",function(){
+//     fetch("http://www.js.es/server/animales.json",
+//         {
+//             method:"POST",
+//             headers: {"Content-Type":"application/x-www-form-urlencoded"},
+//             cache: "no-cache"
+//         })
+//     .then(function(resp){
+//        if(resp.ok){
+//             resp.json()
+//             .then(function(data){
+//                 console.log(data)
+//                 data = data.animales[1]
+//                 console.log(data)
+//                 info.innerHTML = "El "+data.nombre+" es: "+data.dieta;
+//             })
+//             .catch(function(err){
+//                 info.innerHTML = "ERROR: "+err;
+//             });
+//         }
+//     })
+//     .catch(function(err){
+//         info.innerHTML = "ERROR: "+err;
+//     })
+// });
+//----------------------------- Creacción de Cookies ------------------------------
+const login = document.getElementById("login");
+const pass =  document.getElementById("password");
+const color = document.getElementById("color");
+
+document.getElementById("blogin").addEventListener("click",function(){
+    console.log("Login: "+login.value+" pass: "+pass.value+" color: "+color.value);
+    document.cookie = "Login="+login.value;
+    document.cookie = "Pass="+pass.value;
+    document.cookie = "Color="+color.value;
+   document.body.style.backgroundColor = color.value
 });
+
+
+
